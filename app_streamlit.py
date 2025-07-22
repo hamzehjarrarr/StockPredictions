@@ -26,7 +26,7 @@ if st.button("Predict Next Close Price"):
         "end_date": str(end_date),
         "window_size": window_size
     }
-    response = requests.get("http://127.0.0.1:8000/predict", params=params)
+    response = requests.get("http://fastapi:8000/predict", params=params)
     if response.status_code == 200:
         result = response.json()
         st.success(f"Predicted next day closing price: {result['predicted_next_close']:.2f}")
