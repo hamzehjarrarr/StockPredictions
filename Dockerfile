@@ -18,6 +18,6 @@ COPY app_streamlit.py .
 # Expose FastAPI and Streamlit ports
 EXPOSE 8000
 EXPOSE 8501
-
+#
 # Start FastAPI and Streamlit together
 CMD ["bash", "-c", "uvicorn app:app --host 0.0.0.0 --port 8000 & streamlit run app_streamlit.py --server.port 8501"]
