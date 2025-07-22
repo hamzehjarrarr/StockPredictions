@@ -5,7 +5,8 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dropout, Dense
 from tensorflow.keras.callbacks import EarlyStopping
-
+from fastapi.responses import StreamingResponse
+import io
 from src.config import MODEL_PARAMS
 
 
@@ -64,38 +65,6 @@ def evaluate_model(model, X_test, y_test, feature_scaler, target_scaler, feature
 
     return {'test_mae': mae, 'test_rmse': rmse}
 
-
-def plot_predictions(model, X_test, y_test, feature_scaler, target_scaler, feature_names, symbol="Stock"):
-    test_pred_scaled = model.predict(X_test).flatten()
-    test_pred = target_scaler.inverse_transform(test_pred_scaled.reshape(-1, 1)).flatten()
-    test_actual = target_scaler.inverse_transform(y_test.reshape(-1, 1)).flatten()
-
-    last_features_scaled = X_test[:, -1]
-    last_features_actual = feature_scaler.inverse_transform(last_features_scaled)
-    last_closes_actual = last_features_actual[:, feature_names.index('close')]
-
-    predicted_prices = last_closes_actual * (1 + test_pred)
-    actual_prices = last_closes_actual * (1 + test_actual)
-
-    plt.figure(figsize=(12, 6))
-    plt.plot(actual_prices, label='Actual Closing Price')
-    plt.plot(predicted_prices, label='Predicted Closing Price')
-    plt.legend()
-    plt.title(f'Actual vs. Predicted Closing Prices ({symbol})')
-    plt.show()
-
-
-def plot_training_loss(history):
-    plt.figure(figsize=(12, 6))
-    plt.plot(history.history['loss'], label='Training Loss')
-    plt.plot(history.history['val_loss'], label='Validation Loss')
-    plt.title('Loss Over Epochs')
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss')
-    plt.legend()
-    plt.show()
-
-
 def predict_next_day(model,last_sequence,feature_scaler,target_scaler,feature_names):        
 
     window_size = last_sequence.shape[0]                 
@@ -120,5 +89,4 @@ def directional_accuracy(model, X_test, y_test, target_scaler):
     predicted_direction = (test_pred[:-1] > 0).astype(int)
     accuracy = np.mean(actual_direction == predicted_direction)
 
-    print(f'Directional Accuracy: {accuracy:.2%}')
     return accuracy

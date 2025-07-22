@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 from sklearn.preprocessing import StandardScaler
-
 from src.config import FEATURES_CONFIG, MODEL_PARAMS, DATA_SPLIT
 
 

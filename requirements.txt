@@ -1,6 +1,9 @@
-numpy
-pandas
-yfinance
-scikit-learn
-tensorflow
+fastapi
+uvicorn
+streamlit
 matplotlib
+tensorflow
+scikit-learn
+yfinance
+pandas
+numpy
