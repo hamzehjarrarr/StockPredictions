@@ -8,7 +8,7 @@ This repository provides a modular pipeline for stock price prediction using dee
 - Feature engineering with configurable technical indicators (OHLCV, returns, volatility, moving averages, RSI, MACD, stochastic oscillator, etc.)
 - Sequence creation for time series modeling
 - Data scaling and splitting (train/validation/test)
-- Model training and evaluation (LSTM/GRU)
+- Model training and evaluation (LSTM)
 - FastAPI endpoint for predictions
 
 ## Project Structure
@@ -65,7 +65,6 @@ Edit `src/config.py` to adjust model parameters, feature selection, and data spl
 ## Usage
 
 - Modify `FEATURES_CONFIG` in `config.py` to select features.
-- Use `main.py` for batch experiments.
 - Use `app.py` to serve predictions via API.
 - Use `app_streamlit.py` for the Streamlit UI (via Docker Compose).
 
