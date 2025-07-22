@@ -40,20 +40,34 @@ app.py                   # FastAPI server
    python main.py
    ```
 
-4. Start the API server:
+
+## Running with Docker Compose
+
+1. Build and start the services:
    ```
-   python app.py
+   docker compose up --build
+   ```
+
+2. Access the apps:
+   - FastAPI: [http://localhost:8000](http://localhost:8000)
+   - Streamlit: [http://localhost:8501](http://localhost:8501)
+
+3. To stop the services:
+   ```
+   docker compose down
    ```
 
 ## Configuration
 
 Edit `src/config.py` to adjust model parameters, feature selection, and data split ratios.
 
+
 ## Usage
 
 - Modify `FEATURES_CONFIG` in `config.py` to select features.
 - Use `main.py` for batch experiments.
 - Use `app.py` to serve predictions via API.
+- Use `app_streamlit.py` for the Streamlit UI (via Docker Compose).
 
 ## License
 
